@@ -1,0 +1,36 @@
+Fluxo básico de execução do NestJS
+
+1 - Um cliente faz uma requisição HHTP em um rota GET/
+2 - O Controller com o decorator @Get() intercepta a requisição
+3 - O Controller chama um método do Servic, que deve ser importado e contém a lógica
+4 - O resultado do serviço é retornado pelo Controller como resposta.
+
+Suporte nativo TypeScript <3
+Modular e escalável
+Microservices <3
+
+Especificações de query string com url no controler:
+Exemplo:
+@Controller('movies')
+export class MoviesController {
+    @Get()
+    findAll(){
+        return "Listagem de filmes"
+    }
+
+    @Get(":id/:name") // da pra passar dois parametros de query string, /:name por exemplo
+    findOne(@Param('id') id : number ) : string { //@Param('name') name: string): string{ //id : number, :string significa que o retorno da função é uma string
+        return `Filme numero ${id} - Nome : ${name}` }                      // @Param é utilizado para extrair o valor do parametro de rota                                                                           // Estou usando id pois é o unico valor esperado, posso usar o @Param() params para receber muitos parametros de uma requisição
+    }
+
+O decorator @Body()
+é usado para acessar os dados do corpo da requisição (request body) em métodos de controle no NestJS. 
+Isso é geralmente usado em requisições POST, PUT, PATCH, etc., onde o cliente envia dados ao servidor.
+@Body(): Os dados podem ser complexos, como objetos JSON, arquivos, ou qualquer estrutura que seja 
+enviada no corpo da requisição.
+
+O decorator @Param()
+é usado para acessar os parâmetros de rota da URL da requisição. Esses parâmetros são geralmente utilizados
+em requisições GET, mas também podem ser usados em POST, PUT, ou outros métodos, quando os dados estão na 
+própria URL da requisição.
+@Param(): Os dados são tipicamente simples, como valores de URL (strings ou números) que identificam um recurso.
