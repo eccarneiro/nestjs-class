@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { Movie } from './movies.entity';
 
 @Injectable()
@@ -19,16 +19,22 @@ export class MoviesService {
     }
 
     findOne(id: number){
-        return this.movies.find( movie => movie.id === id)
+        
+        const movie = this.movies.find( movie => movie.id === id)
+        if (!movie){
+            throw new HttpException(`Movie ${id} not found`, 404)
+        }
+        return movie
     }
 
     create(createMovieDTO: any){
         this.movies.push(createMovieDTO)
+        return createMovieDTO
     }
 
     update(id: number, updateMovieDTO: any){
         const existingMovie = this.findOne(id )
-        if (existingMovie){
+        if (existingMovie as any){
            const index = this.movies.findIndex(movie => movie.id === id)
            this.movies[index] = {
             id,
