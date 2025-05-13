@@ -1,11 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesModule } from './movies/movies.module';
+import { Movie } from './movies/entities/movie.entity';
 
 @Module({
-  imports: [MoviesModule], //importa os modulos
-  controllers: [AppController ], //Declara os controladores disponíveis
-  providers: [AppService], //Declara os serviços, injeção de dependência.
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5433,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'postgres',
+      entities: [Movie],
+      synchronize: true,
+    }),
+    MoviesModule,
+  ],
 })
 export class AppModule {}

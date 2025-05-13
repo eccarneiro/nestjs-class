@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
+
 export class createMovieDTO {
     @IsNotEmpty()
     @IsString()
