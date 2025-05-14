@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Tag } from '../entities/tags.entity';
 
 
 export class createMovieDTO {
@@ -16,5 +17,5 @@ export class createMovieDTO {
 
     @IsNotEmpty()
     @IsString({ each: true })
-    tags: string[];
+    tags: Tag[];
 }
